@@ -8,8 +8,29 @@ export class TherapiesService {
   constructor(private prisma: PrismaService) {}
 
   async create(createTherapyDto: CreateTherapyDto) {
+    const providers = createTherapyDto.providers.map(provider => ({
+      name: provider.name,
+    }));
+  
     const createData = await this.prisma.therapy.create({
-      data: createTherapyDto
+      data: {
+        name: createTherapyDto.name,
+        description: createTherapyDto.description,
+        address: createTherapyDto.address,
+        city: createTherapyDto.city,
+        state: createTherapyDto.state,
+        zipcode: createTherapyDto.zipcode,
+        phoneNumber: createTherapyDto.phoneNumber,
+        website: createTherapyDto.website,
+        email: createTherapyDto.email,
+        companyContact: createTherapyDto.companyContact,
+        registrationDate: createTherapyDto.registrationDate,
+        therapyType: createTherapyDto.therapyType,
+        acceptingClients: createTherapyDto.acceptingClients,
+        providers: {
+          create: providers,
+        },
+      },
     });
 
     return { 

@@ -12,7 +12,36 @@ datasource db {
 }
 
 model Therapy {
-  id          String @id @default(cuid())
-  name        String
-  description String
+  id               String      @id @default(cuid())
+  name             String
+  description      String
+  address          String
+  city             String
+  state            String
+  zipcode          String
+  phoneNumber      String
+  website          String
+  email            String
+  companyContact   String
+  therapyType      TherapyType
+  registrationDate DateTime    
+  acceptingClients Boolean     @default(true)
+  providers        Provider[]
+}
+
+model Provider {
+  id   String @id @default(cuid())
+  name String
+
+  therapy   Therapy? @relation(fields: [therapyId], references: [id])
+  therapyId String?
+
+  @@index([therapyId])
+}
+
+enum TherapyType {
+  BEHAVIORAL
+  OCCUPATIONAL
+  PHYSICAL
+  SPEECH
 }
