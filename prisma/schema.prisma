@@ -11,6 +11,15 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
 model Therapy {
   id               String      @id @default(cuid())
   name             String
@@ -24,7 +33,7 @@ model Therapy {
   email            String
   companyContact   String
   therapyType      TherapyType
-  registrationDate DateTime    
+  registrationDate DateTime
   acceptingClients Boolean     @default(true)
   providers        Provider[]
 }
