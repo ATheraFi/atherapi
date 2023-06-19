@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsDate, IsLatitude, IsLongitude, IsNotEmpty, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 enum TherapyType {
@@ -27,6 +27,16 @@ export class CreateTherapyDto {
   @IsNotEmpty()
   @IsString()
   address: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsLatitude()
+  lat: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsLongitude()
+  lng: number;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -63,6 +73,8 @@ export class CreateTherapyDto {
   @IsString()
   companyContact: string;
 
+  @ApiProperty()
+  @IsDate()
   registrationDate: Date;
 
   @ApiProperty()
